@@ -10,6 +10,8 @@ services:
     volumes:
       - backend-data:/usr/src/app/
     restart: always
+    networks:
+      - net
   frontend:
     build:
       context: ./conduit-frontend
@@ -17,7 +19,13 @@ services:
     ports:
       - "8282:80"
     restart: always
+    networks:
+      - net
     depends_on:
       - backend
 volumes:
   backend-data:
+
+networks:
+  net:
+    driver: bridge
