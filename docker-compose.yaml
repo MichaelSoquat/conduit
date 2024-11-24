@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: ./conduit-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - backend-data:/usr/src/app/
+    restart: always
+  frontend:
+    build:
+      context: ./conduit-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8282:80"
+    restart: always
+    depends_on:
+      - backend
+volumes:
+  backend-data:
