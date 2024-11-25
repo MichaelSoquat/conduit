@@ -8,24 +8,17 @@ services:
     env_file:
       - .env
     volumes:
-      - backend-data:/usr/src/app/
-    restart: always
-    networks:
-      - net
+      - conduit-db:/app/db_data
+    restart: on-failure
   frontend:
     build:
       context: ./conduit-frontend
       dockerfile: Dockerfile
     ports:
       - "8282:80"
-    restart: always
-    networks:
-      - net
+    restart: on-failure
+
     depends_on:
       - backend
 volumes:
-  backend-data:
-
-networks:
-  net:
-    driver: bridge
+  conduit-db:
