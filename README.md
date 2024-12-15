@@ -36,7 +36,7 @@ This repo has an angular frontend with a django backend splitted in submodules. 
 
 4. **Docker compose:**
         ```
-        docker compose up
+        docker compose up -d
         ```
 
 > ⚠️ **Attention!**  
