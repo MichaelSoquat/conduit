@@ -39,8 +39,9 @@ This repo has an angular frontend with a django backend splitted in submodules. 
         docker compose up
         ```
 
-`Attention!`
-Please adjust the environment files with the correct path to your server `<ip>/:<port>/api`
+> ⚠️ **Attention!**  
+> Please adjust the environment files with the correct path to your server `<ip>/:<port>/api`.
+
 
 
 ## Usage
