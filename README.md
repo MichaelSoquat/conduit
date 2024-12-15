@@ -58,27 +58,10 @@ You can use this endpoint to perform API requests, test endpoints, or integrate 
 
 - **Frontend-Dockerfile**:
 
-  ```
-  FROM node:20-alpine AS build
-
-  WORKDIR /app
-  
-  COPY package.json package-lock.json ./
-  
-  RUN npm install
-  
-  COPY . .
-  
-  RUN npm run build --prod
-  
-  FROM nginx:alpine
-  
-  COPY --from=build /app/dist/* /usr/share/nginx/html
-  
-  EXPOSE 80
-  ```
+  https://github.com/MichaelSoquat/conduit-frontend/blob/591c07be3b58aa589def6dc74df8b6361af8be38/Dockerfile
 
 - **Backend-Dockerfile**:
+  
  https://github.com/MichaelSoquat/conduit-backend/blob/e7c3d46d13dee30cb8e6be8b6923b266db97f161/Dockerfile
 
 ## docker-compose
