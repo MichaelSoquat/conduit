@@ -9,14 +9,14 @@ services:
       - .env
     volumes:
       - conduit-db:/app/db_data
-    restart: on-failure
+    restart: unless-stopped
   frontend:
     build:
       context: ./conduit-frontend
       dockerfile: Dockerfile
     ports:
       - "8282:80"
-    restart: on-failure
+    restart: unless-stopped
 
     depends_on:
       - backend
