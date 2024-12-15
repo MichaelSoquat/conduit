@@ -120,32 +120,7 @@ You can use this endpoint to perform API requests, test endpoints, or integrate 
 
 ## docker-compose
 
-```
-services:
-  backend:
-    build:
-      context: ./conduit-backend
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env
-    volumes:
-      - conduit-db:/app/db_data
-    restart: on-failure
-  frontend:
-    build:
-      context: ./conduit-frontend
-      dockerfile: Dockerfile
-    ports:
-      - "8282:80"
-    restart: on-failure
-
-    depends_on:
-      - backend
-volumes:
-  conduit-db:
-```
+https://github.com/MichaelSoquat/conduit/blob/main/docker-compose.yaml
 
 ## docker-commands
 
