@@ -20,7 +20,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: docker-compose.yaml
+          source: docker-compose.yml
           target: /tmp/
 
       - name: Configure docker-compose on server
@@ -32,8 +32,8 @@ jobs:
           script: |
             # Ensure target directory exists
             mkdir -p ${{ secrets.TARGET_DIR }}
-            # Move docker-compose.yaml to the target directory
-            mv /tmp/docker-compose.yaml ${{ secrets.TARGET_DIR }}/docker-compose.yaml
+            # Move docker-compose.yml to the target directory
+            mv /tmp/docker-compose.yml ${{ secrets.TARGET_DIR }}/docker-compose.yml
 
   create_env_file:
     runs-on: ubuntu-latest
