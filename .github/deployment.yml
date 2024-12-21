@@ -1,0 +1,29 @@
+name: Deploy to server
+
+on:
+  repository_dispatch:
+    types: [trigger-deploy]
+  workflow_dispatch:
+
+jobs:
+  update_container_setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start or restart project on server via ssh action
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.PROJECT_PATH }}
+            
+            # Stop and remove all running containers
+            docker compose down || true  # This will stop and remove all services defined in the docker-compose.yml
+            
+            # Optional: Remove unused images to free up space
+            docker image prune -a -f
+            
+            # Rebuild and start the services defined in the docker-compose.yml
+            docker compose up -d
