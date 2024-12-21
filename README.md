@@ -113,13 +113,14 @@ Configuraiton of `secrets` and `variables` in github:
 Go to the following path: `settings/security/Secrets and variables/actions`
 - You have to define the following secrets
 
-```
-PAT	             personal access token	
-TARGET_DIR	       target directory
-SERVER_IP	       ip of your server
-SSH_PRIVATE_KEY	 ssh private key to connect to server
-USER	             username on the server
-```
+| Name              | Description                            |
+|-------------------|----------------------------------------|
+| PAT               | Personal access token                  |
+| TARGET_DIR        | Target directory                       |
+| SERVER_IP         | IP of your server                      |
+| SSH_PRIVATE_KEY   | SSH private key to connect to server   |
+| USER              | Username on the server                 |
+
 
 - And these are the variables:
 
