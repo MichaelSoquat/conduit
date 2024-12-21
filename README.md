@@ -114,17 +114,17 @@ Go to the following path: `settings/security/Secrets and variables/actions`
 - You have to define the following secrets
 
 ```
-PAT	the personal access token	
-TARGET_DIR	the target dir
-SERVER_IP	the ip of your server
-SSH_PRIVATE_KEY	the ssh private key to connect to server
-USER	the username on the server
+PAT	             personal access token	
+TARGET_DIR	       target directory
+SERVER_IP	       ip of your server
+SSH_PRIVATE_KEY	 ssh private key to connect to server
+USER	             username on the server
 ```
 
 - And these are the variables:
 
 ```
-API_URL	the backend url
+API_URL
 DJANGO_SUPERUSER_USERNAME
 DJANGO_SUPERUSER_PASSWORD
 DJANGO_SUPERUSER_EMAIL
