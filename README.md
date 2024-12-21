@@ -101,7 +101,8 @@ docker logs <container_name_or_id>
 docker exec -it <container_name_or_id> /bin/bash
 ```
 
-##Automated-Workflow
+## Automated-Workflow
+
 In the folder `.github` you see a workflow for automatically move the `.env` and the `docker compose` to the server https://github.com/MichaelSoquat/conduit/blob/main/.github/main.yml.
 On top of that the frontend and the backend repo gets automatically moved to the server too.
 It´s triggered with a push on the main branch.
