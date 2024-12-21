@@ -1,0 +1,78 @@
+name: Update repo on server on push
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update_compose_setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy docker-compose to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: docker-compose.yaml
+          target: /tmp/
+
+      - name: Configure docker-compose on server
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Ensure target directory exists
+            mkdir -p ${{ secrets.TARGET_DIR }}
+            # Move docker-compose.yaml to the target directory
+            mv /tmp/docker-compose.yaml ${{ secrets.TARGET_DIR }}/docker-compose.yaml
+
+  create_env_file:
+    runs-on: ubuntu-latest
+    needs: update_compose_setup
+
+    steps:
+      - name: Create .env file
+        run: |
+          cat <<EOT > .env
+          DJANGO_SUPERUSER_USERNAME=${{ vars.DJANGO_SUPERUSER_USERNAME }}
+          DJANGO_SUPERUSER_PASSWORD=${{ vars.DJANGO_SUPERUSER_PASSWORD }}
+          DJANGO_SUPERUSER_EMAIL=${{ vars.DJANGO_SUPERUSER_EMAIL }}
+          API_URL=${{ vars.API_URL }}
+          EOT
+
+      - name: Upload .env file to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: .env
+          target: ${{ secrets.TARGET_DIR }}
+
+  trigger_services:
+    runs-on: ubuntu-latest
+    needs: update_compose_setup
+
+    steps:
+      - name: Trigger frontend build
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          repository: MichaelSoquat/conduit-frontend
+          token: ${{ secrets.PAT }}
+          event-type: trigger-build
+
+      - name: Trigger backend build
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          repository: MichaelSoquat/conduit-backend
+          token: ${{ secrets.PAT }}
+          event-type: trigger-build
