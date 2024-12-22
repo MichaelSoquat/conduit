@@ -138,4 +138,12 @@ To create and move to new branch you can use this code:
 ```
 git checkout -b "new-branch-name"
 ```
+
+The `PAT` has to be in this format!
+
+```
+-----BEGIN OPENSSH PRIVATE KEY-----
+      <your private key>
+-----END OPENSSH PRIVATE KEY-----
+```
  
