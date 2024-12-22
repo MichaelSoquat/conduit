@@ -17,7 +17,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ secrets.PROJECT_PATH }}
+            cd ${{ secrets.TARGET_DIR }}
             
             # Stop and remove all running containers
             docker compose down || true  # This will stop and remove all services defined in the docker-compose.yml
